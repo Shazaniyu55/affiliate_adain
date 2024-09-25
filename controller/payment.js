@@ -393,46 +393,44 @@ const subscriptionFeeReferral = async (req, res) => {
       }
 
       // Create a new payment record
-      const payment = new Subscribe({
-          public_key: process.env.PUBLIC_KEY,
-          email: email,
-          name: name,
-          tx_ref: tx_ref,
-          currency: 'NGN',
-          subscription: package,
-          status: 'pending',
-          points: points,
-          user: userId,
-          amount:package,
-          response: {}  // Empty response as we don't need to store it initially
-      });
-      await payment.save();
-
-      const response = await axios.post('https://api.flutterwave.com/v3/payments', {
+      const paymentData = {
+        public_key: process.env.PUBLIC_KEY,
+        email: email,
         tx_ref: tx_ref,
+        name: name,
+        subscription: package,
+        currency: 'NGN',
+        source: 'docs-html-test',
+        user: userId,
+        amount: package
+      };
+
+      const response = await axios.post('https://api.paystack.co/transaction/initialize', {
+
         amount: package,
         currency: 'NGN',
-        redirect_url: `http://localhost:3500/api/auth/dashboard/${userId}`,
-        customer: {
-          email: email,
-          name:name,
-          phonenumber: '09012345678'
-        },
-        user:userId
+        callback_url: `http://localhost:3500/api/payment/verify-payment?tx_ref&reference&userId=${userId}`,
+      
+        email: email,
+        name: name,
        
      
       }, {
         headers: {
-          Authorization: `Bearer ${process.env.SECRETE_KEY}`,
+          Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`,
           'Content-Type': 'application/json'
         },
       
       });
 
-      if (response.data.status === 'success') {
-        const paymentLink = response.data.data.link; // This link is where you should redirect the user to
-        await Subscribe.updateOne({ status: 'success' });
+      if (response.data.status === true) {
+        const paymentLink = response.data.data.authorization_url; // This link is where you should redirect the user to
+        const payment = new Subscribe(paymentData);
+        await payment.save();
         res.redirect(paymentLink); // Redirect user to the payment page
+        // const paymentLink = response.data.data.link; // This link is where you should redirect the user to
+        // await Subscribe.updateOne({ status: 'success' });
+        // res.redirect(paymentLink); // Redirect user to the payment page
       } else {
         // Handle unsuccessful response
         await Subscribe.updateOne({ status: 'failed' });
@@ -830,7 +828,6 @@ const withdraw = async (req, res) => {
 
 };
 
-const walletTransfer = (req, res)=>{}
 
 
 

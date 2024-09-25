@@ -133,7 +133,6 @@ body::-webkit-scrollbar-track {
     height: 520px;
     overflow: hidden;
     z-index: 2;
-    overflow-y: scroll;
     /* margin-left: -130px; */
 }
 .login-container{

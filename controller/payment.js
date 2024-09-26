@@ -533,111 +533,6 @@ const verifyPayment = async (req, res) => {
 
 };
 
-// const subscriptionFee = async (req, res) => {
-//     const { email, name, package, userId } = req.body;
-//   const timestamp = Date.now(); // Current timestamp in milliseconds
-//   const randomValue = Math.floor(Math.random() * 1000000); // Random number up to 1,000,000
-//   const tx_ref = `tx_${timestamp}_${randomValue}`; // Combine timestamp and random value
-
-//   const points = packagePoints[package] || 0;
-
-//   const paymentData = {
-//     public_key: process.env.PUBLIC_KEY,
-//     email: email,
-//     name: name,
-//     tx_ref: tx_ref,
-//     subscription: package,
-//     currency: 'NGN',
-//     source: 'docs-html-test',
-//     user: userId,
-//     amount: package
-//   };
-
-//   try {
-//     // Make the API request to Flutterwave
-//     const response = await axios.post('https://api.flutterwave.com/v3/payments', {
-//       tx_ref: tx_ref,
-//       amount: package,
-//       currency: 'NGN',
-//       redirect_url: `http://localhost:3500/api/payment/verify-payment?tx_ref=${tx_ref}&userId=${userId}`,
-//       customer: {
-//         email: email,
-//         name: name,
-//         phonenumber: '09012345678'
-//       }
-//     }, {
-//       headers: {
-//         Authorization: `Bearer ${process.env.SECRETE_KEY}`,
-//         'Content-Type': 'application/json'
-//       }
-//     });
-
-//     if (response.data.status === 'success') {
-//       const paymentLink = response.data.data.link; // This link is where you should redirect the user to
-//       const payment = new Subscribe(paymentData);
-//       await payment.save();
-//       res.redirect(paymentLink); // Redirect user to the payment page
-//     } else {
-//       res.status(400).json({ success: false, message: 'Payment initialization failed' });
-//     }
-//   } catch (error) {
-//     console.error('Error preparing payment redirect:', error);
-//     res.status(500).json({ success: false, message: 'Failed to prepare payment redirect' });
-//   }
-// };
-
-
-
-// const verifyPayment = async (req, res) => {
-//   const { tx_ref, userId, transaction_id } = req.query;
- 
-
-//   if (!tx_ref || !userId || !transaction_id) {
-//     return res.status(400).json({ success: false, message: 'Missing required parameters' });
-//   }
-
-
-
-
-//   try {
-//     // Fetch the payment record from the database
-//     const payment = await Subscribe.findOne({ tx_ref: tx_ref });
-//     if (!payment) {
-//       return res.status(400).json({ success: false, message: 'Payment record not found' });
-//     }
-
-//     const expectedAmount = payment.amount; // Retrieve the expected amount from the payment record
-//     console.log(expectedAmount)
-//     const points = packagePoints[expectedAmount] || 0;
-
-//     // Verify the transaction using Flutterwave
-//     const response = await flw.Transaction.verify({ id: transaction_id });
-//     //console.log(response)
-
-
-
-//     if (response.data.status === 'successful' &&
-//         response.data.amount === expectedAmount &&
-//         response.data.currency === 'NGN') {
-
-//       // Payment was successful, update the payment status
-//       await Subscribe.updateOne({ tx_ref: tx_ref }, { status: 'success' });
-//       await Subscribe.updateOne({ points: points})
-
-//       // Optionally, update other related records or perform additional actions
-
-//       //res.redirect(`http://localhost:3500/api/auth/dashboard/${userId}`);
-//       res.render('paymentsuccess', {userId})
-//     } else {
-//       // Payment failed or does not match the expected parameters
-//       await Subscribe.updateOne({ tx_ref: tx_ref }, { status: 'failed' });
-//       res.status(400).json({ success: false, message: 'Payment verification failed' });
-//     }
-//   } catch (error) {
-//     console.error('Error verifying payment:', error);
-//     res.status(500).json({ success: false, message: 'Failed to verify payment' });
-//   }
-// };
 
 
 const getAllBanks = (req, res) => {
@@ -830,7 +725,6 @@ const withdraw = async (req, res) => {
 
 
 
-
 const submitPayment = async (req, res) => {
   const { email, name, amount, userId } = req.body;
   console.log(email, name, amount, userId)
@@ -940,10 +834,10 @@ const buyAirtime = async(req, res)=>{
 
 
 const verifyUpgradePayment = async (req, res) => {
-  const { tx_ref, userId, transaction_id } = req.query;
+  const { tx_ref, userId, reference } = req.query;
  
 
-  if (!tx_ref || !userId || !transaction_id) {
+  if (!tx_ref || !userId || !reference) {
     //return res.status(400).json({ success: false, message: 'Missing required parameters' });
     return  res.render('paymentunsuccess', {userId})
 
@@ -995,7 +889,9 @@ const verifyUpgradePayment = async (req, res) => {
 };
 
 const upgradePackage = async (req, res) => {
-  const { email, name, package, userId } = req.body;
+  const userId = req.params.userId;
+console.log(userId)
+  const { email, name, package } = req.body;
   const timestamp = Date.now(); // Current timestamp in milliseconds
   const randomValue = Math.floor(Math.random() * 1000000); // Random number up to 1,000,000
   const tx_ref = `tx_${timestamp}_${randomValue}`; // Combine timestamp and random value
@@ -1021,27 +917,24 @@ const upgradePackage = async (req, res) => {
 
 
        // Make the API request to Flutterwave
-    const response = await axios.post('https://api.flutterwave.com/v3/payments', {
+    const response = await axios.post('https://api.paystack.co/transaction/initialize', {
       tx_ref: tx_ref,
       amount: package,
       currency: 'NGN',
-      redirect_url: `http://localhost:3500/api/payment/verify-upgrade-payment?tx_ref=${tx_ref}&userId=${userId}`,
-      customer: {
-        email: email,
-        name:name,
-        phonenumber: '09012345678'
-      },
-      user:userId
+      callback_url: `http://localhost:3500/api/payment/verify-upgrade-payment?tx_ref&reference&userId=${userId}`,
+      email: email,
+      name: name,
+      
      
    
     }, {
       headers: {
-        Authorization: `Bearer ${process.env.SECRETE_KEY}`,
+        Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`,
         'Content-Type': 'application/json'
       }
     });
 
-    if (response.data.status === 'success') {
+    if (response.data.status === true) {
       const paymentLink = response.data.data.link; // This link is where you should redirect the user to
       // Create a new payment record
       const payment = new Upgrade(paymentData);

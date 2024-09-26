@@ -72,6 +72,7 @@ const registerAdmin = async (req, res) => {
       res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
+const distrubutePercentage = async(req, res)=>{}
 
 // Get current admin details
 const getCurrentAdmin = async (req, res) => {
@@ -83,46 +84,6 @@ const getCurrentAdmin = async (req, res) => {
       res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
-
-
-// const getAllUsers = async (req, res) => {
-//   try {
-//     if (!req.session.user) {
-//       return res.redirect('/adminlogin');
-//     }
-
-//     const users = await User.find();
-//     const transac = await Payment.find();
-//     const subscribe = await Subscribe.find();
-
-//     // Prepare data for the chart
-//     const subscriptionLabels = subscribe.map(sub => {
-//       // Format the date as YYYY-MM-DD
-//       return sub.createdAt.toISOString().split('T')[0];
-//     });
-
-//     const subscriptionValues = subscribe.map(sub => sub.subscription);
-
-//     const totalAmount = subscriptionValues.reduce((sum, amount) => sum + amount, 0);
-//     const averageSubscription = subscriptionValues.length > 0 ? totalAmount / subscriptionValues.length : 0;
-//     const totalTransactions = subscriptionValues.length;
-
-//     res.render('user/html/dashboard', {
-//       users,
-//       transac,
-//       subscribe,
-//       totalAmount,
-//       averageSubscription,
-//       totalTransactions,
-//       subscriptionLabels: JSON.stringify(subscriptionLabels),
-//       subscriptionValues: JSON.stringify(subscriptionValues)
-//     });
-//   } catch (err) {
-//     res.status(500).send('Error retrieving data');
-//   }
-// };
-
-
 
 const getAllUsers = async (req, res) => {
   try {
@@ -239,28 +200,6 @@ const createNotification = async (req, res) => {
   }
 };
 
-const paycustomers =async (req, res)=>{
-  const userId= req.params.userId;
-
-  try {
-
-    const details = {
-      tx_ref: 'UNIQUE_TRANSACTION_REFERENCE',
-      amount: '1500',
-      currency: 'NGN',
-      email: 'developers@flutterwavego.com',
-      fullname: 'Flutterwave Developers',
-      phone_number: '+2349012345678'
-    };
-    const response = await flw.Charge.bank_transfer(details);
-    
-  } catch (error) {
-    console.log(error)
-  }
-
-
-}
- 
 
 module.exports = {
   getAllUsers, 

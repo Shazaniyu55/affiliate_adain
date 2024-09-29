@@ -452,7 +452,7 @@ const subscriptionFeeReferral = async (req, res) => {
 };
 
 const subscriptionFee = async (req, res) => {
-  const { email, name, package, userId } = req.body;
+const { email, name, package, userId } = req.body;
 const timestamp = Date.now(); // Current timestamp in milliseconds
 const randomValue = Math.floor(Math.random() * 1000000); // Random number up to 1,000,000
 const tx_ref = `tx_${timestamp}_${randomValue}`; // Combine timestamp and random value
@@ -757,26 +757,25 @@ const submitPayment = async (req, res) => {
       
 
     // Make the API request to Flutterwave
-    const response = await axios.post('https://api.flutterwave.com/v3/payments', {
+    const response = await axios.post('https://api.paystack.co/transaction/initialize', {
       tx_ref: tx_ref,
       amount: amount,
       currency: 'NGN',
-      redirect_url: `http://localhost:3500/api/auth/dashboard/${userId}`,
-      customer: {
+      callback_url: `http://localhost:3500/api/auth/dashboard/${userId}`,   
         email: email,
         name:name,
         phonenumber: '09012345678'
-      }
+      
      
    
     }, {
       headers: {
-        Authorization: `Bearer ${process.env.SECRETE_KEY}`,
+        Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`,
         'Content-Type': 'application/json'
       }
     });
 
-    if (response.data.status === 'success') {
+    if (response.data.status === true) {
       const paymentLink = response.data.data.link; // This link is where you should redirect the user to
       await Payment.updateOne({ status: 'success' });
       res.redirect(paymentLink); // Redirect user to the payment page
@@ -889,9 +888,9 @@ const verifyUpgradePayment = async (req, res) => {
 };
 
 const upgradePackage = async (req, res) => {
-  const userId = req.params.userId;
-console.log(userId)
-  const { email, name, package } = req.body;
+
+  const { email, name, package, userId} = req.body;
+  console.log("Upgrade package request received", req.body);
   const timestamp = Date.now(); // Current timestamp in milliseconds
   const randomValue = Math.floor(Math.random() * 1000000); // Random number up to 1,000,000
   const tx_ref = `tx_${timestamp}_${randomValue}`; // Combine timestamp and random value

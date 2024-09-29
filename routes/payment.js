@@ -21,12 +21,16 @@ const
 router.post("/banktransfer", submitPayment);
 router.post("/withdraw", withdraw);
 router.post("/subscription", subscriptionFee);
+router.post('/niyuupgrade', upgradePackage);
 router.post("/subscription/referral", subscriptionFeeReferral);
 router.get("/payment/callback", handlePaymentCallback);
 router.get("/getAllBanks", getAllBanks);
 router.get("/billPayment", billPayment);
 router.post('/webhook', handleWebhook);
-router.post('/upgradepackage/:userId', upgradePackage);
+
+router.get('/test', (req, res) => {
+    res.json({ message: "Test route is working!" });
+});
 router.get('/verify-payment', verifyPayment);
 router.get('/verify-upgrade-payment', verifyUpgradePayment);
 router.post('/buy-airtime', buyAirtime);

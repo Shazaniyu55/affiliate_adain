@@ -282,9 +282,9 @@
                       <th class="text-truncate">User</th>
                       <th class="text-truncate">Email</th>
                       <th class="text-truncate">Role</th>
-                      <th class="text-truncate">Reciept</th>
+                      <th class="text-truncate">verify</th>
 
-                      <th class="text-truncate">Action</th>
+                      <th class="text-truncate">Reject</th>
                   </tr>
               </thead>
               <tbody>
@@ -293,12 +293,25 @@
                           <td><%= user.fullname %></td>
                           <td><%= user.email %></td>
                           <td><%= user.role || 'User' %></td> <!-- Adjust this if you have a role field -->
-                          <td> <img src="<%= admin.proofPayment.url %>" alt="Proof of Payment" style="width:100px;height:auto;">
                           </td> <!-- Adjust this if you have a role field -->
 
                           <td>
-                              <a href="/edit-user/<%= user._id %>" class="btn btn-warning btn-sm">Verify</a>
+                            <form action="http://localhost:3500/api/admin/approve-payment/<%= paymentId %>" method="post">
+                              <input type="text" name="action" value="approve" hidden>
+                              <input type="text" name="userId" value="<%= user.id %>" hidden>
+
+                              <button class="btn btn-warning btn-sm" type="submit">verify</button>
+                            </form>
                           </td>
+
+                          <td>
+                            <form action="http://localhost:3500/api/admin/approve-payment/<%= paymentId %>" method="post">
+                              <input type="text" name="action" value="reject" hidden>
+                              <input type="text" name="userId" value="<%= user.id %>" hidden>
+
+                              <button class="btn btn-danger btn-sm" type="submit">Reject</button>
+                            </form>
+                        </td>
                       </tr>
                   <% }) %>
               </tbody>

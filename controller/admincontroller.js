@@ -10,6 +10,47 @@ require("dotenv").config();
 
 const flw = new Flutterwave(process.env.PUBLIC_KEY, process.env.SECRETE_KEY);
 
+
+const packagePoints = {
+  '2500': 10,
+  '5000': 20,
+  '10000': 40,
+  '25000': 100,
+  '50000': 200,
+  '100000': 400,
+  '500000': 2000
+};
+
+
+const verifyuserPayment = async (userId) => {
+
+  try {
+    const payment = await Subscribe.findOne({ user: userId });
+
+    if (!payment) {
+      console.log('Payment record not found')
+      return;
+    }
+
+    const expectedAmount = payment.amount; // Retrieve the expected amount from the payment record
+    const points = packagePoints[expectedAmount] || 0;
+
+    console.log('Payment record:', payment);
+console.log('Expected amount:', expectedAmount);
+console.log('Points awarded:', points);
+
+
+
+    // Update payment status and points
+    await Subscribe.findOneAndUpdate( { status: 'success', points: points });
+
+    //res.redirect(`http://localhost:3500/api/auth/dashboard/${userId}`);
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+   // res.status(500).json({ success: false, message: 'Failed to verify payment' });
+  }
+};
+
 // Login an admin
 const logIn = async (req, res) => {
   try {
@@ -130,9 +171,16 @@ const verifyProof = async (req, res) => {
 
       // Fetch the admin document to get proof of payment
       const admin = await Admin.findById('66f134e2e0fcd58cf8e977c3').select('proofPayment');
+      const payment = await Payment.findOne({ userId: users._id }); // Adjust the query as needed
+      if (!payment) {
+        return res.status(404).send('Payment not found');
+    }
 
+    const paymentId = payment._id; // Extract the payment ID
+
+    
       // Render the view with the users and admin proof of payment
-      res.render('user/html/verifypayment', { users, admin });
+      res.render('user/html/verifypayment', { users, admin, paymentId  });
   } catch (err) {
       console.error('Error retrieving users or admin:', err);
       res.status(500).send('Error retrieving users or admin');
@@ -140,6 +188,34 @@ const verifyProof = async (req, res) => {
 };
 
 
+const verifypayment = async(req, res)=>{
+  try {
+    const { paymentId } = req.params;
+    const { action, userId } = req.body; // action should be 'approve' or 'reject'
+    const users = await User.findById(userId);
+    console.log(users)
+
+    const payment = await Payment.findById(paymentId);
+    if (!payment) {
+        return res.status(404).json({ message: 'Payment not found' });
+    }
+
+    if (action === 'approve') {
+        payment.status = 'approved';
+        await payment.save();
+        await verifyuserPayment(users);
+        res.status(200).json({ message: 'Payment approved successfully' });
+    } else if (action === 'reject') {
+        payment.status = 'rejected';
+        await payment.save();
+        res.status(200).json({ message: 'Payment rejected' });
+    } else {
+        res.status(400).json({ message: 'Invalid action' });
+    }
+} catch (error) {
+    res.status(500).json({ error: error.message });
+}
+}
 
 const deleteUser = async (req, res) => {
     try {
@@ -209,6 +285,7 @@ module.exports = {
   search, 
   registerAdmin, 
   getCurrentAdmin,
-  verifyProof
+  verifyProof,
+  verifypayment
 
 };

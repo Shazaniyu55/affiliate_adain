@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdaIn Affliate</title>
+  <title>QMAP</title>
 
   <!-- 
     - favicon
@@ -16,6 +16,7 @@
     - custom css link
   -->
   <link rel="stylesheet" href="/css/style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <!-- 
     - google font link
@@ -41,12 +42,12 @@
       <div class="overlay" data-overlay></div>
 
       <a href="#">
-        <h1 class="logo">AdaIn Affliate</h1>
+        <h1 class="logo">QMAP</h1>
       </a>
 
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
-          <a href="#" class="logo">AdaIn Affliate</a>
+          <a href="#" class="logo">QMAP</a>
 
           <button class="nav-close-btn" aria-label="Close Menu" data-nav-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -63,9 +64,6 @@
             <a href="/about" class="navbar-link" data-navbar-link>About</a>
           </li>
 
-          <li class="navbar-item">
-            <a href="#services" class="navbar-link" data-navbar-link>Programs</a>
-          </li>
 
           <li class="navbar-item">
             <a href="/program" class="navbar-link" data-navbar-link>Membership</a>
@@ -77,6 +75,10 @@
 
           <li class="navbar-item">
             <a href="/contact" class="navbar-link" data-navbar-link>Contact Us</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="/invest" class="navbar-link" data-navbar-link>Invest</a>
           </li>
 
         </ul>
@@ -220,91 +222,7 @@
       </section>
 
 
-      <!-- 
-        - #SERVICE
-      -->
-<!-- 
-      <section class="section service" id="services">
-        <div class="container">
-
-          <h2 class="h2 section-title underline">Our Speciallization</h2>
-
-          <ul class="service-list">
-
-            <li>
-              <div class="service-card">
-
-                <div class="card-icon">
-                  <ion-icon name="telescope-outline"></ion-icon>
-                </div>
-
-                <h3 class="h3 title">Strategy & Research</h3>
-
-                <p class="text">
-                  Mauris ut felis malesuada eros varius tristique a at orci. Nulla vulputate, leo sit amet rhoncus
-                  suscipit, enim ex
-                  venenatis ipsum, et porttitor.
-                </p>
-
-                <button class="card-btn" aria-label="Show More">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card">
-
-                <div class="card-icon">
-                  <ion-icon name="desktop-outline"></ion-icon>
-                </div>
-
-                <h3 class="h3 title">Web Development</h3>
-
-                <p class="text">
-                  Mauris ut felis malesuada eros varius tristique a at orci. Nulla vulputate, leo sit amet rhoncus
-                  suscipit, enim ex
-                  venenatis ipsum, et porttitor.
-                </p>
-
-                <button class="card-btn" aria-label="Show More">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card">
-
-                <div class="card-icon">
-                  <ion-icon name="globe-outline"></ion-icon>
-                </div>
-
-                <h3 class="h3 title">Web Solution</h3>
-
-                <p class="text">
-                  Mauris ut felis malesuada eros varius tristique a at orci. Nulla vulputate, leo sit amet rhoncus
-                  suscipit, enim ex
-                  venenatis ipsum, et porttitor.
-                </p>
-
-                <button class="card-btn" aria-label="Show More">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-      </section> -->
-  
-      <!-- 
-        - #FEATURES
-      -->
+    
 
       <section class="section features" id="features">
         <div class="container">
@@ -669,7 +587,7 @@ Successfully Executing The QMAP Wealth Plan Will Enable You To Become Rich And W
           </li>
 
           <li>
-            <a href="#" class="footer-link">Home</a>
+            <a href="/views/index.ejs" class="footer-link">Home</a>
           </li>
 
           <li>
@@ -680,9 +598,6 @@ Successfully Executing The QMAP Wealth Plan Will Enable You To Become Rich And W
             <a href="#" class="footer-link">Services</a>
           </li>
 
-          <li>
-            <a href="#" class="footer-link">Team</a>
-          </li>
 
           <li>
             <a href="#" class="footer-link">Blog</a>
@@ -725,11 +640,7 @@ Successfully Executing The QMAP Wealth Plan Will Enable You To Become Rich And W
           </li>
 
           <li>
-            <a href="#" class="footer-link">FAQ</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Portfolio</a>
+            <a href="/FAQ" class="footer-link">FAQ</a>
           </li>
 
           <li>
@@ -737,56 +648,41 @@ Successfully Executing The QMAP Wealth Plan Will Enable You To Become Rich And W
           </li>
 
           <li>
-            <a href="#" class="footer-link">Terms & Conditions</a>
+            <a href="/TERMS" class="footer-link">Terms & Conditions</a>
           </li>
 
-          <li>
-            <a href="#" class="footer-link">Support</a>
-          </li>
 
         </ul>
 
         <ul class="footer-list">
 
-          <li>
-            <p class="footer-list-title">Contact Us</p>
-          </li>
+      
 
-          <li class="footer-item">
-
-            <div class="footer-item-icon">
-              <ion-icon name="call"></ion-icon>
+          <div class="footer-container">
+           
+           
+            <div class="sec contactBx">
+               
+                <ul class="info">
+                  <li>
+                    <p class="footer-list-title">Support</p>
+                  </li>
+                    <li>
+                      <a href="/contact">
+                        <span><i class='bx bx-message'></i></span>
+                      </a>
+                      
+                      
+                        <p></p>
+                    </li>
+                </ul>
             </div>
+        </div>
+            
 
-            <div>
-              <a href="tel:+2349082603201" class="footer-item-link">+234-9082-6032-01</a>
-            </div>
+         
 
-          </li>
-
-          <li class="footer-item">
-
-            <div class="footer-item-icon">
-              <ion-icon name="mail"></ion-icon>
-            </div>
-
-            <div>
-              <a href="mailto:info@adaintech.com" class="footer-item-link">info@AdaIntech.com</a>
-            </div>
-
-          </li>
-
-          <li class="footer-item">
-
-            <div class="footer-item-icon">
-              <ion-icon name="location"></ion-icon>
-            </div>
-
-            <address class="footer-item-link">
-             01 SkyBlue Street, Aso pada, Abuja
-            </address>
-
-          </li>
+          
 
         </ul>
 

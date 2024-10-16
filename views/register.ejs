@@ -285,7 +285,7 @@ fetch('http://localhost:3500/api/payment/getAllBanks')
                 // Optionally redirect to login page or another page
                 localStorage.setItem('token', result.token)
 
-                window.location.href = 'http://localhost:3500/api/auth/subscriptionpop';
+                window.location.href = 'http://localhost:3500/api/auth/accountpay';
             } else {
                 document.getElementById('message').textContent = result.message;
                 document.getElementById('message').style.color = 'red';

@@ -78,7 +78,17 @@ app.get('/services', (req, res)=>{
 app.get('/features', (req, res)=>{
     res.render("feature")
 });
+app.get('/invest', (req, res)=>{
+    res.render("invest")
+});
 
+app.get('/FAQ', (req, res)=>{
+    res.render("FAQ")
+});
+
+app.get('/TERMS', (req, res)=>{
+    res.render("TERMS")
+});
 app.get('/program', (req, res)=>{
     res.render("program")
 });
@@ -98,6 +108,8 @@ app.get('/adminlogin', (req, res)=>{
 app.get('/login', (req, res)=>{
     res.render("login")
 });
+
+
 
 app.get('/forgot', (req, res)=>{
     res.render("forgot")
@@ -132,6 +144,9 @@ app.get('/logout', (req, res) => {
     });
 });
 
+app.get('/high', (req, res)=>{
+    res.render("high")
+});
 
 app.use((req, res, next) => {
     res.status(404).render('404');

@@ -703,31 +703,6 @@ const withdraw = async (req, res) => {
 
 }
 
-//   const validateBankInfo = axios.post('https://api.paystack.co/bank/validate', {
-//     "bank_code": `${bank_code}`,
-//     "country_code": "NG",
-//     "account_number": `${account_number}`,
-//     "account_name": `${account_name}`,
-//     "account_type": "personal",
-//     "document_type": "identityNumber",
-//     "document_number": "76147241785"
-//   },
-//   {
-//     headers: {
-//       Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`,
-//       'Content-Type': 'application/json'
-//     }
-//   }
-
-// )
-// console.log(validateBankInfo)
-  // if(validateBankInfo.status === true){
-
-   
-
-  // }else{
-  //   res.status(400).json({status: "failed", message: "verification failed"})
-  // }
 
   
 

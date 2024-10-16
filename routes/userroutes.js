@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require("multer")
 const {authenticate} = require('../util/auth.middleware')
+const Payment = require("../model/payment");
 //all my controller imports 
 const 
 {
@@ -117,6 +118,19 @@ router.get('/accountpay', (req, res)=>{
       }
     res.render("paymanual", { user: req.session.user })
 });
+
+router.get('/payment-status/:userId', async (req, res) => {
+    try {
+        const payment = await Payment.findOne({ user: req.params.userId });
+        if (!payment) {
+            return res.status(404).json({ message: 'Payment not found' });
+        }
+        res.status(200).json({ status: payment.status });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 router.get('/subscriptionreferall', (req, res)=>{
     if (!req.session.user) {

@@ -359,9 +359,31 @@ const signUp = async (req, res) => {
         image: imageURL // Add imageURL to user model if applicable
       });
 
+       // Create a payment entry
+    //    const payment = new Payment({
+    //     user: user._id,
+    //     amount: Number(package),
+    //     bankDetails: {
+    //         accountNumber,
+    //         accountName,
+    //         bankName: accountBank,
+    //     }
+    // });
+
+
+    const subscribe = new Subscribe({
+        user: user._id,
+        amount: Number(package),
+        
+        
+    });
+    
+
 
         try {
             await user.save();
+            //await payment.save();
+            await subscribe.save();
             // Generate a JWT token
             const token = jwt.sign({ id: user._id}, 'Adain', { expiresIn: '1h' });
 
@@ -930,6 +952,7 @@ module.exports =
     generateReferralIdToken,
     signupWithReferralToken,
     getReferredUsers,
-    getUser
+    getUser,
+    
 
 };

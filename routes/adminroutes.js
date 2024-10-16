@@ -10,7 +10,8 @@ const
    search,
    registerAdmin,
    createNotification,
-   verifyProof
+   verifyProof,
+   verifypayment
 } 
 = require("../controller/admincontroller");
 const {adminAuth} = require("../util/auth.middleware")
@@ -28,6 +29,7 @@ router.get('/message', (req, res)=>{
    res.render('user/html/bulkmessage', { user: req.session.user })
 })
 
+router.post('/approve-payment/:paymentId', verifypayment)
 router.get('/verify', verifyProof);
 router.post('/notifications', createNotification);
 

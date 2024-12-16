@@ -173,39 +173,25 @@ const getUserData = async (req, res) => {
 
         // Fetch payments and subscriptions associated with the user
         const payments = await Payment.find({ user: userId }).lean();
-        console.log(payments)
         const subscribe = await Subscribe.find({ user: userId }).lean();
         const notifications = await Notification.find().sort({ createdAt: -1 });
 
-        // Check if it's the end of the month
-        const now = new Date();
-        const isEndOfMonth = now.getDate() === new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-
-        if (isEndOfMonth) {
-            console.log("End of the month check");
-        }
 
         // Calculate totals
         const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
         const totalsub = subscribe.reduce((sum, sub) => sum + sub.points, 0);
 
-        // Ensure req.session.user is initialized
-        req.session.user = req.session.user || {}; // Initialize if undefined
-
         // Store data in session
         req.session.user.payments = payments;
         req.session.user.totalAmount = totalAmount;
-        req.session.user.subscribe = subscribe; // Use actual subscriptions array
-        req.session.user.totalsub = totalsub;
+        req.session.user.subscribe = totalsub;
+
+      
 
         // Render the view with user and calculated data
-        res.render("admin/html/wallet", {
-            user,
-            payments,
-            notifications,
+        res.render("admin/html/wallet", {user, payments, notifications,
             totalAmount,
-            totalsub
-        });
+            totalsub});
 
     } catch (error) {
         console.error('Error fetching user data:', error);
@@ -222,6 +208,74 @@ const getUserData = async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+
+// const getUserData = async (req, res) => {
+//     const userId = req.params.userId;
+
+//     // Ensure userId is provided
+//     if (!userId) {
+//         return res.status(400).json({ message: 'User ID is required' });
+//     }
+
+//     try {
+//         // Fetch user details
+//         const user = await User.findById(userId);
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+
+//         // Fetch payments and subscriptions associated with the user
+//         const payments = await Payment.find({ user: userId }).lean();
+//         //console.log(payments)
+//         const subscribe = await Subscribe.find({ user: userId }).lean();
+//         const notifications = await Notification.find().sort({ createdAt: -1 });
+
+//         // Check if it's the end of the month
+//         const now = new Date();
+//         const isEndOfMonth = now.getDate() === new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+//         if (isEndOfMonth) {
+//             console.log("End of the month check");
+//         }
+
+//         // Calculate totals
+//         const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
+//         const totalsub = subscribe.reduce((sum, sub) => sum + sub.points, 0);
+
+//         // Ensure req.session.user is initialized
+//         req.session.user = req.session.user || {}; // Initialize if undefined
+
+//         // Store data in session
+//         req.session.user.payments = payments;
+//         req.session.user.totalAmount = totalAmount;
+//         req.session.user.subscribe = subscribe; // Use actual subscriptions array
+//         req.session.user.totalsub = totalsub;
+
+//         // Render the view with user and calculated data
+//         res.render("admin/html/wallet", {
+//             user,
+//             payments,
+//             notifications,
+//             totalAmount,
+//             totalsub
+//         });
+
+//     } catch (error) {
+//         console.error('Error fetching user data:', error);
+
+//         // Handle errors and provide a fallback in case of failure
+//         req.session.user = {
+//             ...req.session.user,
+//             payments: [],
+//             totalAmount: 0,
+//             subscribe: [],
+//             totalsub: 0
+//         };
+
+//         return res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// };
 
 
 // const getUserData = async (req, res) => {
@@ -438,19 +492,18 @@ const signUp = async (req, res) => {
     // });
 
 
-    const subscribe = new Subscribe({
-        user: user._id,
-        amount: Number(package),
+    // const subscribe = new Subscribe({
+    //     user: user._id,
+    //     amount: Number(package),
         
         
-    });
+    // });
     
 
 
         try {
             await user.save();
-            //await payment.save();
-            await subscribe.save();
+            
             // Generate a JWT token
             const token = jwt.sign({ id: user._id}, 'Adain', { expiresIn: '1h' });
 

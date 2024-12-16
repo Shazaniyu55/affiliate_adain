@@ -270,11 +270,15 @@ let select = document.querySelector("#accountBank");
         document.getElementById('preloader').style.display = 'flex';
     
         const formData = new FormData(this); // Create FormData from the form
+        const formDataObject = Object.fromEntries(formData.entries());
     
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                body: formData, // Send FormData directly without setting Content-Type header
+                headers: {
+                'Content-Type': 'application/json' // Indicate JSON payload
+            },
+                body: JSON.stringify(formDataObject) , // Send FormData directly without setting Content-Type header
             });
     
             const result = await response.json();

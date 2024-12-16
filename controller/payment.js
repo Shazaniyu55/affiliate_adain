@@ -534,7 +534,7 @@ console.log('reference:', reference);
 
 
     // Update payment status and points
-    await Subscribe.findOneAndUpdate({ tx_ref: trxref }, { status: 'success', points: points });
+    await Subscribe.findOneAndUpdate({ status: 'success', points: points });
 
     res.redirect(`https://qmap.adaintech.com/api/auth/dashboard/${userId}`);
   } catch (error) {

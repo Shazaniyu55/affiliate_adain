@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION).then(()=>{console.log("Database
 //host my express static files
 app.use (express.static(path.join(__dirname, "assets")));
 //allows cross origin resources sharing
-app.use(cors({origin: "http://localhost:3500/", methods: 'GET, POST, PUT, DELETE', allowedHeaders:'Content-Type,authorization'}));
+app.use(cors({origin: "https://qmap.adaintech.com/", methods: 'GET, POST, PUT, DELETE', allowedHeaders:'Content-Type,authorization'}));
 //creates a session to store user details
 app.use(session({
     secret: process.env.SESSION_SECRETE,

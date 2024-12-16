@@ -173,6 +173,7 @@ const getUserData = async (req, res) => {
 
         // Fetch payments and subscriptions associated with the user
         const payments = await Payment.find({ user: userId }).lean();
+        console.log(payments)
         const subscribe = await Subscribe.find({ user: userId }).lean();
         const notifications = await Notification.find().sort({ createdAt: -1 });
 

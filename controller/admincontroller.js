@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const flw = new Flutterwave(process.env.PUBLIC_KEY, process.env.SECRETE_KEY);
 
-a
+
 const packagePoints = {
   '2500': 10,
   '5000': 20,

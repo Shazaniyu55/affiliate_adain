@@ -415,7 +415,7 @@ const subscriptionFeeReferral = async (req, res) => {
      
       }, {
         headers: {
-          Authorization: `Bearer sk_test_0ef643074c6e99bb5e115e092a4bb495a5b63005`,
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRETE}`,
           'Content-Type': 'application/json'
         },
       
@@ -482,7 +482,7 @@ const subscriptionFee = async (req, res) => {
       name: name,
     }, {
       headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_SECRETE_LIVE}`,
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRETE}`,
         'Content-Type': 'application/json'
       }
     });

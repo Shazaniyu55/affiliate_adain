@@ -407,7 +407,7 @@ const subscriptionFeeReferral = async (req, res) => {
 
         amount: package * 100,
         currency: 'NGN',
-        callback_url: `http://localhost:3500/api/payment/verify-payment?userId=${userId}`,
+        callback_url: `https://qmap.adaintech.com/api/payment/verify-payment?userId=${userId}`,
       
         email: email,
         name: name,
@@ -477,7 +477,7 @@ const subscriptionFee = async (req, res) => {
     const response = await axios.post('https://api.paystack.co/transaction/initialize', {
       amount: package * 100,
       currency: 'NGN',
-      callback_url: `http://localhost:3500/api/payment/verify-payment?userId=${userId}`,
+      callback_url: `https://qmap.adaintech.com/api/payment/verify-payment?userId=${userId}`,
       email: email,
       name: name,
     }, {
@@ -536,7 +536,7 @@ console.log('reference:', reference);
     // Update payment status and points
     await Subscribe.findOneAndUpdate({ tx_ref: trxref }, { status: 'success', points: points });
 
-    res.redirect(`http://localhost:3500/api/auth/dashboard/${userId}`);
+    res.redirect(`https://qmap.adaintech.com/api/auth/dashboard/${userId}`);
   } catch (error) {
     console.error('Error verifying payment:', error);
     res.status(500).json({ success: false, message: 'Failed to verify payment' });
@@ -747,7 +747,7 @@ const submitPayment = async (req, res) => {
       tx_ref: tx_ref,
       amount: amount,
       currency: 'NGN',
-      callback_url: `http://localhost:3500/api/auth/dashboard/${userId}`,   
+      callback_url: `https://qmap.adaintech.com/api/auth/dashboard/${userId}`,   
         email: email,
         name:name,
         phonenumber: '09012345678'
@@ -1028,7 +1028,7 @@ const monthlySubscribe = async (req, res) => {
       tx_ref: tx_ref,
       amount: package,
       currency: 'NGN',
-      redirect_url: `http://localhost:3500/api/auth/dashboard/${userId}`,
+      redirect_url: `https://qmap.adaintech.com/api/auth/dashboard/${userId}`,
       customer: {
         email: email,
         name:name,

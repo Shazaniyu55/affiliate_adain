@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adain Affliate</title>
+    <link rel="stylesheet" href="/css/pop.css">
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="popup">
+        <h2>To Proceed to your dashboard</h2>
+        <p>Pay  an account to enjoy exclusive benefits!</p>
+         
+        <% if (user.points === null) { %>
+            <p>You have not paid yet.</p>
+            
+            
+        
+        <% } else { %>
+
+
+
+
+            <img src="<%= user.image %>" alt="" style="width: 50px; height: 50px; border-radius: 50%;">
+            <p><%= user.fullname %></p>
+        
+            <form action="https://qmap.adaintech.com/api/payment/subscription" method="post">
+
+                <input type="text" value="<%= user.id %>" name="userId" id="userId" hidden>
+                <input type="email" id="email" name="email" value="<%= user.email %>" hidden>
+                <input type="number" id="package" name="package" value="<%= user.package %>" hidden>
+                <input type="text" id="name" name="name" value="<%= user.fullname %>" hidden>
+                <label for="amount">Amount: ₦<%= user.package %></label>
+                <button type="submit" id="okBtn">Pay</button>
+            </form>
+            
+        
+        <% } %>
+        
+    </div>
+    
+
+   
+
+    <script src="/js/pop.js"></script>
+</body>
+</html>

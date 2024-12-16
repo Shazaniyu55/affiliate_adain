@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adain Affliate</title>
+    <link rel="stylesheet" href="/css/pop.css">
+    <style>
+        /* Preloader styles */
+        .preloader {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+   
+<div class="popup">
+    <h2>Pay into this account to Proceed</h2>
+    <p>Adain Technologies Ltd</p>
+    <p>Account Number: 0125953580</p>
+    <p>Bank: Wema Bank</p>
+    <button type="submit" id="okBtn">Completed</button>
+</div>
+
+<div class="popup">
+    <h2>Admin Contact</h2>
+    <p>For any inquiries, please contact:</p>
+    <p>Admin Name: John Doe</p>
+    <p>Phone: (123) 456-7890</p> <!-- Replace with actual phone number -->
+</div>
+
+
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+    
+
+   
+
+    <script src="/js/pop.js"></script>
+    <script>
+     document.getElementById('okBtn').addEventListener('click', function() {
+    // Show preloader
+    document.getElementById('preloader').style.display = 'flex';
+
+    // Make an API call to check payment status
+    fetch(`https://qmap.adaintech.com/api/auth/payment-status/<%= user.id %>`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'approved') {
+                // Redirect to the dashboard if payment is approved
+                window.location.href = `https://qmap.adaintech.com/api/auth/dashboard/<%= user.id %>`;
+            } else {
+                // Handle pending or rejected cases, e.g., show a message
+                alert('Your payment is still pending. Please wait for admin approval.');
+                //document.getElementById('preloader').style.display = 'none'; // Hide preloader
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('preloader').style.display = 'none'; // Hide preloader
+        });
+});
+
+    </script>
+</body>
+</html>

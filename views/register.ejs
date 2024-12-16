@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/register.css">
+    <title>AdaIn Affliate</title>
+    <style>
+        /* Add this CSS to style the preloader */
+     .preloader {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(255, 255, 255, 0.8);
+         display: none; /* Hidden by default */
+         justify-content: center;
+         align-items: center;
+         z-index: 9999;
+     }
+     
+     .spinner {
+         border: 4px solid rgba(0, 0, 0, 0.1);
+         border-left: 4px solid #3498db;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         animation: spin 1s linear infinite;
+     }
+     
+     @keyframes spin {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+     }
+
+h2{
+    color: white;
+}
+
+.step {
+    display: none; /* Hide all steps initially */
+}
+
+.step.active {
+    display: block; /* Show active step */
+}
+
+.input-box {
+    margin: 10px 0;
+}
+
+.navigation {
+    margin: 20px 0;
+}
+
+.navigation button {
+    padding: 10px 20px;
+}
+
+     
+         </style>
+</head>
+<body>
+ <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>AdaIn Affiliate</p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li><a href="/" class="link active">Home</a></li>
+                <li><a href="/" class="link">About</a></li>
+                <li><a href="/" class="link">Resources</a></li>
+            </ul>
+        </div>
+        <div class="nav-button">
+            <button class="btn white-btn" id="loginBtn"><a href="/login">Sign In</a> </button>
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+<!----------------------------- Form box ----------------------------------->    
+<div class="form-box">
+    <div class="login-container" id="login">
+        <div class="top">
+            <header id="message">Sign Up</header>
+        </div>
+        <form id="signUpForm" enctype="multipart/form-data">
+            <!-- Step 1 -->
+            <div class="step" id="step1">
+                <h2>Step 1: Personal Information</h2>
+                <div class="input-box">
+                    <input type="text" name="fullname" id="fullname" class="input-field" placeholder="Full Name" required>
+                    <i class="bx bx-user"></i>
+
+                </div>
+                <div class="input-box">
+                    <input type="text" name="phoneNumber" id="phoneNumber" class="input-field" placeholder="Phone Number" required>
+                    <i class="bx bx-phone"></i>
+
+                </div>
+                <div class="input-box">
+                    <input type="text" name="email" id="email" class="input-field" placeholder="Email" required>
+                    <i class="bx bx-envelope"></i>
+
+                </div>
+                <div class="navigation">
+                    <button type="button" onclick="nextStep(2)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step" id="step2" style="display:none;">
+                <h2>Step 2: Account Information</h2>
+                <div class="input-box">
+                    <input type="text" name="accountName" id="accountName" class="input-field" placeholder="Account Name" required>
+                    <i class="bx bx-user"></i>
+
+                </div>
+                <div class="input-box">
+                    <input type="text" name="accountNumber" id="accountNumber" class="input-field" placeholder="Account Number" required>
+                    <i class="bx bx-lock-alt"></i>
+
+                </div>
+                <div class="input-box">
+                    <input type="text" name="accountBank" id="accountBank" class="input-field" placeholder="Account Bank" required>
+
+                    <!-- <select name="accountBank" class="input-field" id="accountBank" required>
+                        <option value="" disabled selected>Select Bank</option>
+                    </select> -->
+                    <i class="bx bx-wallet"></i>
+
+                </div>
+
+                <div class="input-box">
+                    <input type="text" name="country" id="country" class="input-field" placeholder="Country">
+                    <i class="bx bx-globe"></i>
+                </div>
+                
+                <div class="navigation">
+                    <button type="button" onclick="prevStep(1)">Back</button>
+                    <button type="button" onclick="nextStep(3)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step" id="step3" style="display:none;">
+                <h2>Step 3: Package and Photo</h2>
+                <div class="input-box">
+                    <select class="input-field" name="package" id="package" required>
+                        <option value="" disabled selected>Select Package</option>
+                        <option value="2500">Basic ₦2,500</option>
+                        <option value="5000">Pro ₦5,000</option>
+                        <option value="10000">Max ₦10,000</option>
+                        <option value="25000">Premium ₦25,000</option>
+                        <option value="50000">Premium Pro ₦50,000</option>
+
+                        <option value="100000">Premium Max ₦100,000</option>
+                        <option value="500000">Classic ₦500,000</option>
+                    </select>
+                    <i class="bx bx-box"></i>
+
+                </div>
+                <div class="input-box">
+                    <input type="file" name="image" id="image" class="input-field" required>
+                    <i class="bx bx-camera"></i>
+
+                </div>
+                <div class="navigation">
+                    <button type="button" onclick="prevStep(2)">Back</button>
+                    <button type="button" onclick="nextStep(4)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step" id="step4" style="display:none;">
+                <h2>Step 4: Create Password</h2>
+                <div class="input-box">
+                    <input type="password" name="password" id="password" class="input-field" placeholder="Password" required>
+                    <i class="bx bx-lock-alt"></i>
+
+                </div>
+                <div class="two-col">
+                    
+                    <div class="two">
+                        <label><a href="#">Terms & conditions</a></label>
+                    </div>
+                </div>
+                    <button type="submit" class="submit">Register </button>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+</div>
+
+</div>   
+<script>
+   
+   function myMenuFunction() {
+    var i = document.getElementById("navMenu");
+    if(i.className === "nav-menu") {
+        i.className += " responsive";
+    } else {
+        i.className = "nav-menu";
+    }
+   }
+
+   let currentStep = 1;
+
+function showStep(step) {
+    const steps = document.querySelectorAll('.step');
+    steps.forEach((s) => s.style.display = 'none');
+    document.getElementById(`step${step}`).style.display = 'block';
+}
+
+function nextStep(step) {
+    currentStep = step;
+    showStep(currentStep);
+}
+
+function prevStep(step) {
+    currentStep = step;
+    showStep(currentStep);
+}
+
+// Show the first step initially
+showStep(currentStep);
+
+ 
+</script>
+
+<script>
+
+//fetch all nigerian banks
+let select = document.querySelector("#accountBank");
+
+fetch('https://qmap.adaintech.com/api/payment/getAllBanks')
+    .then(res => res.json())
+    .then(data => {
+        // Clear the select options first
+        select.innerHTML = '';
+
+        // Loop through the data and create options
+        data.data.forEach(bank => {
+            let option = document.createElement('option');
+            
+            option.value = bank.name; // Set the value to the bank ID
+            option.textContent = bank.name; // Set the display text to the bank name
+            select.appendChild(option); // Append the option to the select element
+        });
+    })
+    .catch(error => console.log(error));
+
+    const API_URL = 'https://qmap.adaintech.com/api/auth/register';
+    
+    document.getElementById('signUpForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        //show preloader
+        document.getElementById('preloader').style.display = 'flex';
+    
+        const formData = new FormData(this); // Create FormData from the form
+    
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                body: formData, // Send FormData directly without setting Content-Type header
+            });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+                document.getElementById('message').textContent = result.message;
+                document.getElementById('message').style.color = 'green';
+                // Optionally redirect to login page or another page
+                localStorage.setItem('token', result.token)
+
+                window.location.href = 'https://qmap.adaintech.com/api/auth/subscriptionpop';
+            } else {
+                document.getElementById('message').textContent = result.message;
+                document.getElementById('message').style.color = 'red';
+            }
+        } catch (error) {
+            console.log(error);
+            document.getElementById('message').textContent = 'An error occurred. Please try again.';
+            document.getElementById('message').style.color = 'red';
+        }finally{
+             //hode preloader
+             document.getElementById('preloader').style.display = 'none';
+        }
+    });
+    
+    
+    
+</script>
+</body>
+</html>
+
+
+

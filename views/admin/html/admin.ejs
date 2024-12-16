@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link rel="icon" href="/images/Adain Transparent Official Icon White 5.png">
+    <title>Adain Affliate</title>
+    <link rel="stylesheet" href="/css/dashboard2.css">  
+
+    <style>
+               /* Add this CSS to style the preloader */
+ .preloader {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(255, 255, 255, 0.8);
+     display: none; /* Hidden by default */
+     justify-content: center;
+     align-items: center;
+     z-index: 9999;
+ }
+ 
+ .spinner {
+     border: 4px solid rgba(0, 0, 0, 0.1);
+     border-left: 4px solid #3498db;
+     border-radius: 50%;
+     width: 40px;
+     height: 40px;
+     animation: spin 1s linear infinite;
+ }
+ 
+ @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+ }
+    </style>  
+</head>
+<body>
+
+    <div class="left-side">
+        <div class="clossee">
+            <p class="dontsho">X</p>
+        </div>
+        <div class="back">
+            <img src="/images/arrow-next-svgrepo-com black.png" alt="" id="backimg">
+            <p id="toback">Back to home</p>
+        </div>
+
+        <div class="side-nav">
+            <ul>
+                <a href="https://qmap.adaintech.com/api/auth/dashboard/<%= user.id %>"><li class="remain" id="plan"><img src="/images/plan-svgrepo-com.png" alt="">Plan</li></a>
+                <a href="https://qmap.adaintech.com/api/auth/users/withdraw/<%= user.id %>"><li id="withdraw"><img src="/images/money-bill-transfer-solid.svg" alt="">Withdrawals</li></a>
+                <a href="https://qmap.adaintech.com/api/auth/users/wallet/<%= user.id %>"><li id="wallet"><img src="/images/wallet-svgrepo-com (1).png" alt="">Wallet</li></a>
+                <a href="https://qmap.adaintech.com/api/auth/users/vtu/<%= user.id %>"><li id="Top-up"><img src="/images/top-up-balance-svgrepo-com.png" alt="">VTU Top-up</li></a>
+                <a href="https://qmap.adaintech.com/api/auth/users/<%= user.id %>/referred"><li id="Top-up"><img src="/images/person.png" alt="">Referred</li></a>
+
+            </ul>
+        </div>
+        <div class="logout">
+            <img src="/images/session-leave-svgrepo-com.png" alt="">
+            <p>Logout</p>
+        </div>
+    </div>
+
+    
+
+
+
+ 
+    <div class="side-bar">
+
+        <div class="ham">
+            <img src="/images/hamburger-svgrepo-com (1).png" id="hamm" alt="">
+        </div>
+
+        <div class="dark">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
+            <img src="/images/sun-2-svgrepo-com.png" alt="" id="sun">
+        </div>
+        <svg id="bell" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416l400 0c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4l0-25.4c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112l0 25.4c0 47.9 13.9 94.6 39.7 134.6L72.3 368C98.1 328 112 281.3 112 233.4l0-25.4c0-61.9 50.1-112 112-112zm64 352l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"/></svg>
+
+        <div class="noti">
+            <p id="noti-num">1</p>
+        </div>
+
+        <div class="sear">
+            <input type="text" name="" id="searchbar">
+            <img src="/images/search-svgrepo-com.png" alt="" id="search">
+        </div>
+
+        <div class="profile">
+            <img src="<%= user.image  %>" class="img"></img>
+            <div class="go">
+            <img src="/images/arrow-next-svgrepo-com black.png" alt="" id="around">
+        </div>
+        </div>
+    </div>
+    
+
+    <div class="tootop">
+
+        <ul>
+            <li id="profile"><a href="https://qmap.adaintech.com/auth/users/profile/<%= user.id %>"><img src="/images/profile-1335-svgrepo-com.png" alt=""> Profile</a></li>
+            <li id="logout"><a href="https://qmap.adaintech.com/logout"><img src="/images/power-symbol-svgrepo-com.png" alt=""> Logout</a></li>
+        </ul>
+    
+    </div>
+
+
+
+
+
+    
+    
+
+    
+    <div class="oveelayy"></div>
+    <div class="sure">
+        <img src="/images/session-leave-svgrepo-com.png" alt="">
+        <p>Are you sure you want <span> to log out? </span></p>
+
+        <div class="buts">
+            <button><a href="https://qmap.adaintech.com/logout">Logout</a></button>
+            <button class="cancel">Cancel</button>
+        </div>
+    </div>
+    
+
+    <div class="pland">
+        <p id="head">Plan</p>
+
+        <div class="sub-nav">
+            <ul>
+                <li id="bb">Basic Executive</li>
+                <li id="bb2">Basic Pro</li>
+                <li id="bb3">Basic Max Executive</li>
+                <li id="bb4">Premuim Executive</li>
+                <li id="bb5">Premuim Pro</li>
+                <li id="bb6">Premuim Max Executive</li>
+            </ul>
+        </div>
+
+        <div class="basicE">
+
+            <div class="nav">
+                <ul>
+                    <li id="bbb">Registration Fee</li>
+                    <li id="bbb2" >Designated Business Volume</li>
+                    <li id="bbb3">Earning Level Depth</li>
+                    <li id="bbb4">Monthly Fees and BV</li>
+                </ul>
+            </div>
+            <!--  -->
+            <form  action="https://qmap.adaintech.com/api/payment/niyuupgrade" method="post">
+                <div class="dis2">
+                    <div class="nav2">
+                        <input type="text" name="userId" id="userId" value="<%= user.id%>" hidden>
+                        <input type="number" name="package" id="package" value="2500" hidden>
+                        <input type="text" name="name" id="name"value="<%= user.fullname %>"  hidden>
+                        <input type="text" name="email" id="email" value="<%= user.email %>" hidden>
+
+                        <p  id="pp">2,500</p>
+                        <p id="pp2">10PV</p>
+                        <p id="pp3">2</p>
+                        <p id="pp4">1,000 & 2PV per month</p>
+                    </div>
+        
+                    
+                    <div class="but">
+                        <button type="submit" class="">Upgrade Plan</button>
+                    </div>
+                </div>
+            </form>
+            
+
+
+        <form action="https://qmap.adaintech.com/api/payment/niyuupgrade" method="post" >
+
+            <div class="dis3">
+                <div class="nav2">
+
+                    <input type="text" name="userId" id="userId" value="<%= user.id%>" hidden>
+                    <input type="number" name="package" id="package" value="5000" hidden>
+                    <input type="text" name="name" id="name"value="<%= user.fullname %>"  hidden>
+                    <input type="text" name="email" id="email" value="<%= user.email %>" hidden>
+                    <p id="pp">5,000</p>
+                    <p id="pp2">20PV</p>
+                    <p id="pp3">4</p>
+                    <p id="pp4">2,000 & 4PV per month</p>
+                </div>
+    
+                
+                <div class="but">
+                    <button type="submit" class="reg2">Upgrade Plan</button>
+                </div>
+            </div>
+        </form>
+        
+
+
+        
+        <form action="https://qmap.adaintech.com/api/payment/niyuupgrade" method="post">
+            <div class="dis4">
+                <div class="nav2">
+                    <input type="text" name="userId" id="userId" value="<%= user.id%>" hidden>
+                    <input type="number" name="package" id="package" value="10000" hidden>
+                    <input type="text" name="name" id="name"value="<%= user.fullname %>"  hidden>
+                    <input type="text" name="email" id="email" value="<%= user.email %>" hidden>
+                    <p id="pp">10,000</p>
+                    <p id="pp2">40PV</p>
+                    <p id="pp3">5</p>
+                    <p id="pp4">3,000 & 5PV per month</p>
+                </div>
+    
+                
+                <div class="but">
+                    <button type="submit" class="reg3">Ugrade Plan</button>
+                </div>
+            </div>
+        </form>
+        
+
+        <form action="https://qmap.adaintech.com/api/payment/niyuupgrade" method="post">
+            <div class="dis5">
+                <div class="nav2">
+                    <input type="text" name="userId" id="userId" value="<%= user.id%>" hidden>
+                    <input type="number" name="package" id="package" value="25000" hidden>
+                    <input type="text" name="name" id="name"value="<%= user.fullname %>"  hidden>
+                    <input type="text" name="email" id="email" value="<%= user.email %>" hidden>
+                    <p id="pp">25,000</p>
+                    <p id="pp2">100PV</p>
+                    <p id="pp3">6</p>
+                    <p id="pp4">4,000 & 16PV per month</p>
+                </div>
+    
+                
+                <div class="but">
+                    <button type="submit" class="reg4">Upgrade Plan</button>
+                </div>
+            </div>
+        </form>
+
+        
+
+        <form action="https://qmap.adaintech.com/api/payment/niyuupgrade" method="post">
+            <div class="dis6">
+                <div class="nav2">
+                    <input type="text" name="userId" id="userId" value="<%= user.id%>" hidden>
+                    <input type="number" name="package" id="package" value="100000" hidden>
+                    <input type="text" name="name" id="name"value="<%= user.fullname %>"  hidden>
+                    <input type="text" name="email" id="email" value="<%= user.email %>" hidden>
+                    <p id="pp">100,000</p>
+                    <p id="pp2">400PV</p>
+                    <p id="pp3">8</p>
+                    <p id="pp4">10,000 & 40PV per month</p>
+                </div>
+    
+                
+                <div class="but">
+                    <button type="submit" class="reg5">Upgrade Plan</button>
+                </div>
+            </div>
+        </form>
+        
+
+
+        <form action="https://qmap.adaintech.com/api/payment/niyuupgrade" method="post">
+            <div class="dis7">
+                <div class="nav2">
+                    <input type="text" name="userId" id="userId" value="<%= user.id%>" hidden>
+                    <input type="number" name="package" id="package" value="500000" hidden>
+                    <input type="text" name="name" id="name"value="<%= user.fullname %>"  hidden>
+                    <input type="text" name="email" id="email" value="<%= user.email %>" hidden>
+                    <p id="pp">500,000</p>
+                    <p id="pp2">2000PV</p>
+                    <p id="pp3">10</p>
+                    <p id="pp4">25,000 & 100PV per month</p>
+                </div>
+    
+                
+                <div class="but">
+                    <button type="submit" class="reg6">Upgrade Plan</button>
+                </div>
+            </div>
+        </form>
+
+
+        <!-- Data Tables -->
+        <div class="col-12 m-4 ">
+            <div class="card overflow-hidden">
+              <div class="table-responsive">
+
+                <% if (user.payments && user.payments.length > 0) { %>
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th class="text-truncate">S/N</th>
+                      <th class="text-truncate">UNIQUE ID</th>
+                      <th class="text-truncate">DESCRIPTION</th>
+                      <th class="text-truncate">AMOUNT</th>
+                      <th class="text-truncate">STATUS</th>
+                      <th class="text-truncate">DATE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% user.payments.forEach((payment, index) => { %>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                         
+                          <div>
+                            <h6 class="mb-0 text-truncate"><%= index + 1 %></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-truncate"><%= payment.tx_ref %></td>
+                      <td class="text-truncate">
+                        <div class="d-flex align-items-center">
+                          <span><%= payment.description || 'No description' %></span>
+                        </div>
+                      </td>
+                      <td><%= payment.amount || 'null' %></td>
+                      <td><%= payment.status || 'Unknown' %></td>
+                       <td><%= new Date(payment.createdAt).toISOString().split('T')[0] %></td>
+                    </tr>
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                    <% }); %>
+                  </tbody>
+                </table>
+                <% } else { %>
+                  <p>No payments found.</p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+
+        
+            
+        </div>
+    </div>
+
+<!-- preloader -->
+<div id="preloader" class="preloader">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>
+
+<!-- close preloader -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Function to show the preloader
+        function showPreloader() {
+            document.getElementById('preloader').style.display = 'flex';
+        }
+
+        // Function to hide the preloader
+        function hidePreloader() {
+            document.getElementById('preloader').style.display = 'none';
+        }
+
+        // Attach event listeners to all forms
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                showPreloader();
+                // Optional: You can handle hiding the preloader if the form submission fails or you handle it with AJAX.
+            });
+        });
+    });
+        
+
+        </script>
+    <script src="/js/dash.js"></script>
+
+
+</body>
+</html>
+
+

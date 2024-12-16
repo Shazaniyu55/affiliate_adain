@@ -172,26 +172,24 @@ const getUserData = async (req, res) => {
         }
 
         // Fetch payments and subscriptions associated with the user
-        const payments = await Payment.find({ user: userId }).lean();
+       // const payments = await Payment.find({ user: userId }).lean();
         const subscribe = await Subscribe.find({ user: userId }).lean();
         const notifications = await Notification.find().sort({ createdAt: -1 });
 
 
         // Calculate totals
-        const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
+        //const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
         const totalsub = subscribe.reduce((sum, sub) => sum + sub.points, 0);
 
         // Store data in session
-        req.session.user.payments = payments;
-        req.session.user.totalAmount = totalAmount;
+        //req.session.user.payments = payments;
+        //req.session.user.totalAmount = totalAmount;
         req.session.user.subscribe = totalsub;
 
       
 
         // Render the view with user and calculated data
-        res.render("admin/html/wallet", {user, payments, notifications,
-            totalAmount,
-            totalsub});
+        res.render("admin/html/wallet", {user, notifications,totalsub});
 
     } catch (error) {
         console.error('Error fetching user data:', error);

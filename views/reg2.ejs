@@ -262,22 +262,22 @@ showStep(currentStep);
     //fetch all nigerian banks
 let select = document.querySelector("#accountBank");
 
-fetch('https://qmap.adaintech.com/api/payment/getAllBanks')
-    .then(res => res.json())
-    .then(data => {
-        // Clear the select options first
-        select.innerHTML = '';
+// fetch('https://qmap.adaintech.com/api/payment/getAllBanks')
+//     .then(res => res.json())
+//     .then(data => {
+//         // Clear the select options first
+//         select.innerHTML = '';
 
-        // Loop through the data and create options
-        data.data.forEach(bank => {
-            let option = document.createElement('option');
+//         // Loop through the data and create options
+//         data.data.forEach(bank => {
+//             let option = document.createElement('option');
             
-            option.value = bank.name; // Set the value to the bank ID
-            option.textContent = bank.name; // Set the display text to the bank name
-            select.appendChild(option); // Append the option to the select element
-        });
-    })
-    .catch(error => console.log(error));
+//             option.value = bank.name; // Set the value to the bank ID
+//             option.textContent = bank.name; // Set the display text to the bank name
+//             select.appendChild(option); // Append the option to the select element
+//         });
+//     })
+//     .catch(error => console.log(error));
 
     const API_URL = 'https://qmap.adaintech.com/api/auth/signupreferraltoken';
     
